@@ -42,6 +42,9 @@ export default class CSVReader extends Component {
       style
     } = this.props
 
+    if(inputRef === undefined)
+      return null
+
     return (
       <input
         type='file'
