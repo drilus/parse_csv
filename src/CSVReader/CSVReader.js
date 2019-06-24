@@ -15,11 +15,12 @@ export default class CSVReader extends Component {
     const {
       onFileLoaded,
       onError,
+      fileName,
       configOptions = {}
     } = this.props
 
     const reader = new window.FileReader()
-    const filename = e.target.files[0].name
+    fileName(e.target.files[0].name)
 
     reader.onload = (event) => {
       Papa.parse(
@@ -27,7 +28,7 @@ export default class CSVReader extends Component {
         Object.assign(configOptions, {
           error: onError,
           complete: function(results) {
-            onFileLoaded(results, filename)
+            onFileLoaded(results)
           }
         })
       )
