@@ -1,4 +1,7 @@
 body {
     margin:  20px;
-  
+}
+
+table caption {
+  caption-side: top;
 }

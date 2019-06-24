@@ -84,7 +84,7 @@ class TableRow extends Component {
   render() {
     return (
       <table id="csv_table" className="table table-striped table-bordered table-hover table-sm">
-        <caption>{this.props.fileName}</caption>
+        <caption>filename: {this.props.fileName}</caption>
         <thead id="headers" className="thead-dark">
           <tr>
             <th>row</th>
