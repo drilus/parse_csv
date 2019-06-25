@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import CSVReader from './CSVReader/CSVReader';
+import TableRow from './TableRow';
+import "react-virtualized/styles.css";
 
 class App extends Component {
   constructor(props) {
@@ -76,36 +78,6 @@ class App extends Component {
         />
         <button className="btn btn-primary" onClick={this.handleImportOffer}>Load CSV</button>
       </div>
-    );
-  }
-}
-
-class TableRow extends Component {
-  render() {
-    return (
-      <table id="csv_table" className="table table-striped table-bordered table-hover table-sm">
-        <caption>filename: {this.props.fileName}</caption>
-        <thead id="headers" className="thead-dark">
-          <tr>
-            <th>row</th>
-            {Object.values(this.props.data[0]).map((item, key) => <th key={key}>{item}</th>)}
-          </tr>
-        </thead>
-        <tbody>
-          {this.props.data.map((row, key) => {
-            if(key > 0)
-              return (
-                <tr key={key}>
-                  <td>{key}</td>
-                  {Object.values(row).map((value, key) => {
-                    return <td key={key}>{value}</td>
-                  })}
-                </tr>
-              )
-            return null
-          })}
-        </tbody>
-      </table>
     );
   }
 }
