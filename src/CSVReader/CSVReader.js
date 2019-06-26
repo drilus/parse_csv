@@ -20,6 +20,8 @@ export default class CSVReader extends Component {
     } = this.props
 
     const reader = new window.FileReader()
+    if(e.target.files[0] === undefined)
+      return undefined
     fileName(e.target.files[0].name)
 
     reader.onload = (event) => {

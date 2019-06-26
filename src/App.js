@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import CSVReader from './CSVReader/CSVReader';
 import TableRow from './TableRow';
-import "react-virtualized/styles.css";
+import RecordData from './records.js'
 
 class App extends Component {
   constructor(props) {
@@ -10,28 +10,7 @@ class App extends Component {
     this.fileInput = React.createRef();
     this.fileName = "example.csv";
     this.state = {
-      data: [
-        [
-          "value",
-          "name",
-          "age"
-        ],
-        [
-          10,
-          "Foo",
-          "20"
-        ],
-        [
-          20,
-          "Bar",
-          "30"
-        ],
-        [
-          30,
-          "Baz",
-          "40"
-        ]
-      ]
+      data: RecordData
     };
   }
 
@@ -71,6 +50,7 @@ class App extends Component {
           onError={this.handleOnError}
           configOptions={{
             skipEmptyLines: true,
+            header: true,
             chunk: (chunk) => {
               this.setState({ data: chunk.data });
             }
