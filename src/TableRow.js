@@ -11,6 +11,8 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTerminal } from '@fortawesome/free-solid-svg-icons'
+import { Button } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
 
 const styles = theme => ({
   tableStriped: {
@@ -48,6 +50,7 @@ class TableRow extends React.PureComponent {
   }
 
     render() {
+
       const CustomToolbarMarkup = () => {
         const {
           handleVisibleChange
@@ -55,11 +58,14 @@ class TableRow extends React.PureComponent {
         return (
         <Plugin name="customToolbarMarkup">
           <Template name="toolbarContent">
-            <FontAwesomeIcon icon={faTerminal} className="btnConsole" onClick={() => handleVisibleChange(true)} />
+            <IconButton aria-label="Show Console" title="Show Console" onClick={() => handleVisibleChange(true)}>
+              <FontAwesomeIcon icon={faTerminal} size="sm" />
+            </IconButton>
             <TemplatePlaceholder />
           </Template>
         </Plugin>)
       };
+
       const rows = this.props.data;
       const columns = Object.keys(rows[0]).map(row => ({
         name: row,
