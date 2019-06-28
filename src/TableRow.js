@@ -11,7 +11,6 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTerminal } from '@fortawesome/free-solid-svg-icons'
-import { Button } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 
 const styles = theme => ({
