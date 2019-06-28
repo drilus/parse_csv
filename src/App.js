@@ -12,13 +12,6 @@ const styles = {
     height: '100%',
     backgroundColor: '#242424',
   },
-  remove: {
-    position: 'absolute',
-    zIndex: 1,
-    right: '10px',
-    top: '10px',
-    cursor: 'pointer'
-  }
 }
 
 class App extends Component {

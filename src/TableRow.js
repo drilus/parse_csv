@@ -3,7 +3,7 @@ import Paper from '@material-ui/core/Paper';
 import { Plugin, Template, TemplatePlaceholder } from "@devexpress/dx-react-core";
 import { FilteringState, IntegratedFiltering, SortingState, IntegratedSorting } from '@devexpress/dx-react-grid';
 import { Grid, VirtualTable, TableHeaderRow, TableFilterRow, DragDropProvider, 
-         TableColumnReordering, TableColumnResizing, ColumnChooser, TableColumnVisibility, 
+         TableColumnReordering, ColumnChooser, TableColumnVisibility, 
          Toolbar,   
        } from '@devexpress/dx-react-grid-material-ui';
 import DateRange from '@material-ui/icons/DateRange';
@@ -12,12 +12,19 @@ import { withStyles } from '@material-ui/core/styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTerminal } from '@fortawesome/free-solid-svg-icons'
 import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = theme => ({
   tableStriped: {
     '& tbody tr:nth-of-type(odd)': {
       backgroundColor: fade(theme.palette.primary.main, 0.15),
     },
+  },
+  headerCell: {
+    '&': {
+      color: '#000',
+      fontWeight: 800,
+    }
   },
 });
 
@@ -33,8 +40,16 @@ const TableComponentBase = ({ classes, ...restProps }) => (
   />
 );
 
+const TableHeaderComponentBase = ({ classes, ...restProps }) => (
+  <TableHeaderRow.Cell
+    {...restProps}
+    className={classes.headerCell}
+  />
+);
+
 const Root = props => <Grid.Root {...props} style={{ height: '100%' }} />;
 export const TableComponent = withStyles(styles, { name: 'TableComponent' })(TableComponentBase);
+export const TableHeaderComponent = withStyles(styles, { name: 'TableHeaderComponent' })(TableHeaderComponentBase);
 
 class TableRow extends React.PureComponent {
 
@@ -57,9 +72,11 @@ class TableRow extends React.PureComponent {
         return (
         <Plugin name="customToolbarMarkup">
           <Template name="toolbarContent">
-            <IconButton aria-label="Show Console" title="Show Console" onClick={() => handleVisibleChange(true)}>
-              <FontAwesomeIcon icon={faTerminal} size="sm" />
-            </IconButton>
+            <Tooltip title="Show Console" aria-label="showConsole">
+              <IconButton aria-label="consoleButton" onClick={() => handleVisibleChange(true)}>
+                <FontAwesomeIcon icon={faTerminal} size="sm" />
+              </IconButton>
+            </Tooltip>
             <TemplatePlaceholder />
           </Template>
         </Plugin>)
@@ -88,7 +105,10 @@ class TableRow extends React.PureComponent {
               tableComponent={TableComponent}
             />
             {/* <TableColumnResizing defaultColumnWidths /> */}
-            <TableHeaderRow showSortingControls />
+            <TableHeaderRow 
+              showSortingControls 
+              cellComponent={TableHeaderComponent}
+            />
             <TableColumnReordering 
               defaultOrder={columns.map(column => column.name)}
             />
@@ -96,7 +116,9 @@ class TableRow extends React.PureComponent {
               showFilterSelector
               iconComponent={FilterIcon}
             />
-            <TableColumnVisibility />
+            <TableColumnVisibility 
+              onHiddenColumnNamesChange={change => console.info(`Columns filtered: ${change}`)}
+            />
             <Toolbar />
             <ColumnChooser />
             <CustomToolbarMarkup />
